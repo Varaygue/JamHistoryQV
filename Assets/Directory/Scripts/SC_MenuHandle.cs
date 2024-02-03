@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class SC_MenuHandle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject unitsMenu;
+    public fmod button_press;
+    public void OpenUnits()
     {
-        
-    }
+        unitsMenu.SetActive(true);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
