@@ -16,6 +16,9 @@ public class ResourcesManager : MonoBehaviour
     {
         goldAmount = 0;
         woodAmount  = 0;
+    }
+    void Update()
+    {
         goldDisplay.text = goldAmount.ToString();
         woodDisplay.text = woodAmount.ToString();
     }

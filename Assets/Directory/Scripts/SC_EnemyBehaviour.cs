@@ -11,10 +11,11 @@ public class SC_EnemyBehaviour : MonoBehaviour
     public float deathTimer = 1;
     public float animationReset =1;
     public ResourcesManager resourcesScript;
+    public bool enemyDeath;
     // Start is called before the first frame update
     void Start()
     {
-    
+        enemyDeath=false;
     }
 
     // Update is called once per frame
@@ -22,6 +23,11 @@ public class SC_EnemyBehaviour : MonoBehaviour
     {
         this.transform.position = this.transform.position + new Vector3(-movementSpeed*Time.deltaTime,0,0);
         
+        if(enemyHP==0&&!enemyDeath)
+        {
+            AddCoin();
+            enemyDeath=true;
+        }
         if(enemyHP==0)
         {
             EnemyDeath();
@@ -39,7 +45,7 @@ public class SC_EnemyBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Arrow"))
+        if(other.CompareTag("Arrow")&&!enemyDeath)
         {
             enemyAnim.SetTrigger("EnemyHit");
             enemyHP = enemyHP-1;
@@ -49,9 +55,12 @@ public class SC_EnemyBehaviour : MonoBehaviour
 
     public void EnemyDeath()
     {
-        resourcesScript.goldAmount = resourcesScript.goldAmount+25;
-        enemyAnim.SetTrigger("EnemyDeath");
         movementSpeed=0;
         deathTimer -= Time.deltaTime;
+    }
+
+    public void AddCoin()
+    {
+        resourcesScript.goldAmount = resourcesScript.goldAmount+25;
     }
 }
